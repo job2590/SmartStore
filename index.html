@@ -301,4 +301,217 @@
             </div>
         </section>
 
-        <section id="pric
+        <section id="pricing" class="py-12 md:py-16 bg-gray-900/50 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto text-center border-4 border-amber-400 rounded-lg p-8 md:p-12 shadow-2xl">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white">Get Your Instant Access Today</h2>
+                 <p class="mt-4 text-gray-300">One-time payment. Lifetime access. Full resell rights.</p>
+                <div class="my-6 relative inline-block"><span class="text-5xl font-bold text-white">$49</span><span class="text-2xl text-gray-400 line-through ml-2">$199</span><span class="absolute -top-4 -right-16 transform rotate-12 bg-red-600 text-white text-sm font-bold px-2 py-1 rounded">SAVE 75%!</span></div>
+                <div id="stock-counter" class="my-4 text-red-500 font-bold text-lg">🔥 Hurry, only <span id="stock-count">...</span> left at this price!</div>
+                <a href="https://your-payment-link-here.com" class="cta-button w-full block bg-green-500 text-white font-bold text-xl md:text-2xl py-5 px-10 rounded-lg shadow-lg">Yes! I Want The Mega Bundle Now!</a>
+                <div class="mt-8 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 text-gray-400">
+                    <div class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>7-Day Money-Back Guarantee</span></div>
+                    <div class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg><span>Secure SSL Checkout</span></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-8 px-4"><p class="text-gray-500">&copy; <span id="year"></span> T-Shirt Bundles Inc. All Rights Reserved.</p><div class="mt-2 space-x-4 text-gray-400"><a href="#" class="hover:underline">Terms of Service</a><span>&bull;</span><a href="#" class="hover:underline">Privacy Policy</a></div></footer>
+    </div>
+    
+    <div id="purchase-notification"><div class="flex-shrink-0 bg-green-100 p-2 rounded-full"><svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></div><div class="min-w-0 flex-1"><p class="font-bold text-sm" id="notification-text">Someone just purchased!</p><p class="text-xs text-gray-600" id="notification-details"><span>The Ultimate T-Shirt Mega Bundle</span><span class="ml-2 font-semibold" id="notification-time">just now</span></p></div></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Countdown Timer Logic ---
+            const urgencyBar = document.getElementById('urgency-bar');
+            const countdownElement = document.getElementById('countdown-timer');
+            let expirationTime = localStorage.getItem('offerExpirationTime');
+            if (!expirationTime) {
+                expirationTime = new Date().getTime() + (15 * 60 * 1000);
+                localStorage.setItem('offerExpirationTime', expirationTime);
+            }
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            function updateCountdown() {
+                const distance = expirationTime - new Date().getTime();
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "00:00";
+                    return;
+                }
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (minutes < 5 && !urgencyBar.style.background.includes('rgb(239, 68, 68)')) { // Check if it's not already red
+                    urgencyBar.style.background = '#EF4444';
+                }
+                countdownElement.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+            updateCountdown();
+
+            // --- Carousel Logic (REWRITTEN) ---
+            const track = document.querySelector('.carousel-track');
+            const slides = Array.from(track.children);
+            if (slides.length > 0) {
+                const nextButton = document.querySelector('.carousel-button.next');
+                const prevButton = document.querySelector('.carousel-button.prev');
+                const dotsNav = document.querySelector('.carousel-dots');
+                
+                slides.forEach((slide, index) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('carousel-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dotsNav.appendChild(dot);
+                });
+
+                const dots = Array.from(dotsNav.children);
+                let slideWidth = slides[0].getBoundingClientRect().width;
+                let currentIndex = 0;
+                let isDragging = false;
+                let startPos = 0;
+                let dragOffset = 0;
+                
+                let autoplayInterval = setInterval(() => { changeSlide(1); }, 5000);
+
+                const stopAutoplay = () => clearInterval(autoplayInterval);
+                const startAutoplay = () => {
+                     stopAutoplay();
+                     autoplayInterval = setInterval(() => { changeSlide(1); }, 5000);
+                }
+
+                function changeSlide(direction) {
+                    const newIndex = (currentIndex + direction + slides.length) % slides.length;
+                    moveToSlide(newIndex);
+                }
+
+                const moveToSlide = (targetIndex) => {
+                    track.style.transition = 'transform 0.5s ease-in-out';
+                    track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+                    
+                    if(dots[currentIndex]) dots[currentIndex].classList.remove('active');
+                    if(dots[targetIndex]) dots[targetIndex].classList.add('active');
+                    
+                    currentIndex = targetIndex;
+                };
+                
+                function handleResize() {
+                   slideWidth = slides[0].getBoundingClientRect().width;
+                   track.style.transition = 'none';
+                   track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+                }
+                window.addEventListener('resize', handleResize);
+
+                function dragStart(event) {
+                    stopAutoplay();
+                    isDragging = true;
+                    startPos = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                    track.style.transition = 'none';
+                    track.classList.add('dragging');
+                }
+
+                function dragMove(event) {
+                    if (isDragging) {
+                        const currentPosition = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                        dragOffset = currentPosition - startPos;
+                        track.style.transform = `translateX(${dragOffset - (currentIndex * slideWidth)}px)`;
+                    }
+                }
+
+                function dragEnd() {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    track.classList.remove('dragging');
+                    track.style.transition = 'transform 0.5s ease-in-out';
+                    
+                    if (dragOffset < -50) { // Swipe left
+                        changeSlide(1);
+                    } else if (dragOffset > 50) { // Swipe right
+                        changeSlide(-1);
+                    } else { // No significant swipe, snap back
+                        track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+                    }
+
+                    dragOffset = 0;
+                    startAutoplay();
+                }
+
+                track.addEventListener('touchstart', dragStart);
+                track.addEventListener('touchend', dragEnd);
+                track.addEventListener('touchmove', dragMove);
+                track.addEventListener('mousedown', dragStart);
+                track.addEventListener('mouseup', dragEnd);
+                track.addEventListener('mouseleave', dragEnd);
+                track.addEventListener('mousemove', dragMove);
+
+                prevButton.addEventListener('click', () => {
+                    stopAutoplay();
+                    changeSlide(-1);
+                    startAutoplay();
+                });
+
+                nextButton.addEventListener('click', () => {
+                    stopAutoplay();
+                    changeSlide(1);
+                    startAutoplay();
+                });
+                
+                dotsNav.addEventListener('click', e => {
+                    const targetDot = e.target.closest('button');
+                    if (!targetDot) return;
+                    stopAutoplay();
+                    const targetIndex = dots.findIndex(dot => dot === targetDot);
+                    moveToSlide(targetIndex);
+                    startAutoplay();
+                });
+            }
+
+            // --- Dark Patterns Logic (FIXED) ---
+            const viewCounterSection = document.getElementById('view-counter-section');
+            const viewerCountElement = document.getElementById('viewer-count');
+            const stockCountElement = document.getElementById('stock-count');
+            let viewerInterval;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        viewCounterSection.classList.add('opacity-100');
+                        if (!viewerInterval) {
+                           viewerInterval = setInterval(() => {
+                                const viewers = Math.floor(Math.random() * (125 - 45 + 1)) + 45;
+                                viewerCountElement.textContent = viewers;
+                            }, 3500);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            if (viewCounterSection) observer.observe(viewCounterSection);
+            
+            let currentStock = parseInt(localStorage.getItem('bundleStock')) || Math.floor(Math.random() * (12 - 5 + 1)) + 5;
+            stockCountElement.textContent = currentStock;
+            function updateStockCount() {
+                if (currentStock > 2) {
+                    currentStock--;
+                    stockCountElement.textContent = currentStock;
+                    localStorage.setItem('bundleStock', currentStock);
+                }
+            }
+            setInterval(updateStockCount, 25000);
+
+            // --- Purchase Notification Logic ---
+            const notification = document.getElementById('purchase-notification');
+            const notificationText = document.getElementById('notification-text');
+            const notificationTime = document.getElementById('notification-time');
+            const buyers = [ { name: "John", location: "California" }, { name: "Emily", location: "Texas" }, { name: "Michael", location: "Florida" }, { name: "Sarah", location: "New York" }, { name: "David", location: "Pennsylvania" }, { name: "Jessica", location: "Illinois" }, { name: "Chris", location: "Ohio" }, { name: "Amanda", location: "Georgia" }, { name: "James", location: "North Carolina" }, { name: "Ashley", location: "Michigan" }, { name: "Robert", location: "New Jersey" }, { name: "Jennifer", location: "Virginia" }, { name: "Daniel", location: "Washington" }, { name: "Melissa", location: "Arizona" }, { name: "Matthew", location: "Massachusetts" } ];
+            const times = ["a few seconds ago", "just now", "1 minute ago", "3 minutes ago", "moments ago"];
+            function showNotification() {
+                const randomBuyer = buyers[Math.floor(Math.random() * buyers.length)];
+                notificationText.textContent = `${randomBuyer.name} from ${randomBuyer.location} purchased:`;
+                notificationTime.textContent = times[Math.floor(Math.random() * times.length)];
+                notification.classList.add('show');
+                setTimeout(() => { notification.classList.remove('show'); }, 5000);
+            }
+            setTimeout(() => { showNotification(); setInterval(showNotification, Math.random() * (22000 - 7000) + 7000); }, 8000);
+            
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
