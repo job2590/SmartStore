@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Editable T-Shirt Designs - The Ultimate Mega Bundle</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #E5E7EB;
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 135, 0.2);
+        }
+        .cta-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #urgency-bar {
+            background: linear-gradient(90deg, #F59E0B, #FBBF24);
+        }
+        .hero-section {
+            background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13196582/68574a0c49470_T-Shirt6.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            cursor: grab;
+        }
+        .carousel-track.dragging {
+            cursor: grabbing;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 9999px;
+            z-index: 10;
+        }
+        .carousel-button.prev {
+            left: 1rem;
+        }
+        .carousel-button.next {
+            right: 1rem;
+        }
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .carousel-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .carousel-dot.active {
+            background-color: white;
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-item summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #374151; /* gray-700 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-item .faq-content {
+            padding: 1rem;
+            background-color: #1F2937; /* gray-800 */
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            margin-top: -0.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .faq-item .icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .faq-item[open] .icon {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="urgency-bar" class="fixed top-0 left-0 w-full text-center p-3 text-black font-bold z-50 shadow-lg">
+        <p id="urgency-text" class="text-sm sm:text-base">Hurry! Your discount expires in <span id="countdown-timer" class="font-extrabold text-base sm:text-lg">15:00</span> — Grab the deal!</p>
+    </div>
+
+    <div class="pt-12">
+
+        <header class="hero-section relative">
+            <div class="absolute inset-0" style="background: linear-gradient(to bottom, #111827 0%, rgba(17, 24, 39, 0.7) 30%, rgba(17, 24, 39, 0.7) 70%, #111827 100%);"></div>
+            
+            <div class="relative text-center py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        <span class="text-amber-400">+1 Million</span> Editable T-Shirt Designs to Skyrocket Your Business
+                    </h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+                        The Ultimate Mega Bundle with <span class="font-bold text-white underline decoration-green-400 decoration-4">Full Resell Rights</span>. Stop wasting time and start selling today!
+                    </p>
+                    <div class="mt-8">
+                        <a href="#pricing" class="cta-button inline-block bg-green-500 text-white font-bold text-lg md:text-xl py-4 px-10 rounded-lg shadow-lg">
+                            Get Instant Access Now + 75% OFF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="py-12 md:py-16 px-4">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-center text-3xl font-bold text-white mb-8">A Glimpse Inside The Bundle</h2>
+                <div class="carousel-container rounded-lg shadow-xl">
+                    <div class="carousel-track">
+                        <div class="carousel-slide p-2">
+                            <img src="https://d1yei2z3i6k35z.cloudfront.net/13196582/68573865c061b_T-Shirt1.jpeg" alt="T-Shirt Design 1" class="w-full h-auto object-contain rounded-md" style="max-height: 500px;">
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://d1yei2z3i6k35z.cloudfront.net/13196582/685736f1a89ee_T-Shirt5.jpeg" alt="T-Shirt Design 2" class="w-full h-auto object-contain rounded-md" style="max-height: 500px;">
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://d1yei2z3i6k35z.cloudfront.net/13196582/685736f19274f_T-Shirt4.jpeg" alt="T-Shirt Design 3" class="w-full h-auto object-contain rounded-md" style="max-height: 500px;">
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://d1yei2z3i6k35z.cloudfront.net/13196582/685736f1aa4ce_T-Shirt3.jpeg" alt="T-Shirt Design 4" class="w-full h-auto object-contain rounded-md" style="max-height: 500px;">
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://d1yei2z3i6k35z.cloudfront.net/13196582/685736f1a9b55_T-Shirt2.jpeg" alt="T-Shirt Design 5" class="w-full h-auto object-contain rounded-md" style="max-height: 500px;">
+                        </div>
+                    </div>
+                    <button class="carousel-button prev">❮</button>
+                    <button class="carousel-button next">❯</button>
+                    <div class="carousel-dots"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 md:py-16 bg-gray-900/50 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-white leading-tight">Everything You Need in One Mega Pack</h2>
+                    <p class="mt-4 text-gray-300">
+                        This isn't just a collection of designs; it's a complete business-in-a-box for your Print-on-Demand or clothing store. We've curated over a million high-quality, editable designs across hundreds of niches. Whether your customers love vintage, modern, funny, or inspirational quotes, you'll have something for everyone.
+                    </p>
+                </div>
+                <div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span><strong class="text-white">Full Resell Rights Included:</strong> Use them for your products and even resell the designs themselves.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span><strong class="text-white">Fully Editable Files:</strong> Get PNG, SVG, and AI/EPS files. Easily change colors, text, and elements.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span><strong class="text-white">Hottest Niches Covered:</strong> From pets and hobbies to holidays and political humor, we've got it all.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span><strong class="text-white">One-Time Payment:</strong> Pay once and get lifetime access to all designs and future updates. No hidden fees.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#pricing" class="cta-button inline-block bg-green-500 text-white font-bold text-lg md:text-xl py-4 px-10 rounded-lg shadow-lg">
+                    Claim Your Mega Bundle Now
+                </a>
+            </div>
+        </section>
+
+        <section class="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-white">Loved by Hundreds of Entrepreneurs</h2>
+                <p class="mt-2 text-gray-400">Don't just take our word for it. See what our customers are saying.</p>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <p class="text-gray-300">"This bundle is 
